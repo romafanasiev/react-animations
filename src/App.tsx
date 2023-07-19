@@ -7,6 +7,9 @@ export const App = () => {
       <Nav />
       <Routes />
     </BrowserRouter>
+    // <>
+    //   <RouterProvider router={createdRouter} />
+    // </>
   );
 };
 
