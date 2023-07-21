@@ -6,7 +6,8 @@ import {
   createBrowserRouter,
 } from 'react-router-dom';
 import { About, Home } from '../../../pages';
-import { PropsWithChildren } from 'react';
+
+import type { PropsWithChildren } from 'react';
 
 const RouteAnimation = ({ children }: PropsWithChildren) => {
   const location = useLocation();
@@ -47,16 +48,18 @@ export const createdRouter = createBrowserRouter([
 export const Routes = () => {
   const location = useLocation();
 
-  const transitions = useTransition(location.pathname, {
+  const transitions = useTransition(location, {
     from: { opacity: 0, transform: 'translateY(100%)' },
     enter: { opacity: 1, transform: 'translateY(0%)' },
+    leave: { opacity: 0, transform: 'translateY(100%)' },
+    exitBeforeEnter: true,
   });
 
   return (
     <>
-      {transitions((styles) => (
+      {transitions((styles, item) => (
         <animated.div style={styles}>
-          <RouterRoutes>
+          <RouterRoutes location={item}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
           </RouterRoutes>
